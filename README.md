@@ -39,7 +39,7 @@ int circularSuffixArray(const Tdata *inStr, Tnum *csa, Tnum len, const Tnum alph
 * @param alphSize size of the alphabet
 * @return 0 after successful computation, non-zero in case of any error */
 template<typename Tdata, typename Tnum>
-int bbwt(const Tdata *inStr, unsigned char *outStr, Tnum *csa, Tnum len, const Tnum alphSize = 256);
+int bbwt(const Tdata *inStr, Tdata *outStr, Tnum *csa, Tnum len, const Tnum alphSize = 256);
 ```
 
 * Inverse of Bijective Burrows-Wheeler Transform

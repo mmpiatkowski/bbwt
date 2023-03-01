@@ -1,7 +1,7 @@
 #ifndef _BBWT_INTERNAL_HPP
 #define _BBWT_INTERNAL_HPP
 
-/*
+/**
  * Bijective Burrows-Wheeler Transform implementation.
  *
  * (c) 2023 Marcin Piątkowski, marcin.piatkowski(at)mat.umk.pl
@@ -91,7 +91,7 @@ bool isSingleton(const Tnum pos, const BitVector<Tnum> & lFac) {
  */
 template<typename Tdata, typename Tnum>
 int preSortSuffixexL(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<Tnum> &lFac, const BitVector<Tnum> &suffType, const BitVector<Tnum> &spcFac, Tnum *buckets, const Tnum alphSize=256) {
-    int p = spcFac.prev(len);
+    Tnum p = spcFac.prev(len);
 
     for (Tnum i=0; i<len; ++i) {
         while ( (p >= 0) && buckets[inStr[p]] == i) {
@@ -133,7 +133,7 @@ int preSortSuffixesS(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<Tnu
     for (Tnum i=len-1; i>=0; --i) {
         Tnum j = sa[i];
 
-        if(j < 0) {
+        if (j < 0) {
             continue;
         }
 
@@ -230,13 +230,13 @@ int circularSuffixArray(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    // Insert L inf-suffixes into the proper bucket (starTdatag from the beginning of the bucket)
+    // Insert L inf-suffixes into the proper bucket (starting from the beginning of the bucket)
     //------------------------------------------------------------------------------------------------------------------
     memcpy(tmpBuckets, buckets, (alphSize+1)*sizeof(Tnum));
     preSortSuffixexL(inStr, sa, len, lbFac, suffType, spcSuff, tmpBuckets, alphSize);
 
     //------------------------------------------------------------------------------------------------------------------
-    // Insert S inf-suffixes into the proper bucket (starTdatag from the bucket end)
+    // Insert S inf-suffixes into the proper bucket (starting from the bucket end)
     //------------------------------------------------------------------------------------------------------------------
     memcpy(tmpBuckets, buckets, (alphSize+1)*sizeof(Tnum));
     preSortSuffixesS(inStr, sa, len, lbFac, suffType, tmpBuckets, alphSize);
@@ -246,7 +246,7 @@ int circularSuffixArray(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<
     // To reduce the space complexity we use the end of the suffix array buffer to store labels of LMS inf-suffixes
     //------------------------------------------------------------------------------------------------------------------
 
-    int numLMSSuff = 0;
+    Tnum numLMSSuff = 0;
 
     for (Tnum i=0; i<len; ++i) {
         if (isLMSPos(sa[i], lbFac, suffType) && !spcSuff.get(sa[i])) {
@@ -266,19 +266,19 @@ int circularSuffixArray(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<
 
     Tnum *labelBuff;
     try {
-        labelBuff = new int[numLMSSuff + 1];
+        labelBuff = new Tnum[numLMSSuff + 1];
     }
     catch (const std::bad_alloc &e) {
         return -1;
     }
 
-    for (int fStart=0, fEnd; fStart<len; fStart=fEnd) {
+    for (Tnum fStart=0, fEnd; fStart<len; fStart=fEnd) {
         fEnd = lbFac.next(fStart);
 
         Tnum j = fEnd, c = 0, c0 = 0, c1 = inStr[fEnd - 1];
 
-        for(Tnum i = fEnd - 2; i >= fStart; --i) {
-            if((c0 = inStr[i]) < (c1 + c)) {
+        for (Tnum i = fEnd - 2; i >= fStart; --i) {
+            if ((c0 = inStr[i]) < (c1 + c)) {
                 c = 1;
             }
             else if(c != 0) {
@@ -290,7 +290,7 @@ int circularSuffixArray(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<
             c1 = c0;
         }
 
-        if((j < fEnd) || (c != 0)) {
+        if ((j < fEnd) || (c != 0)) {
             sa[numLMSSuff + (fStart >> 1)] = j - fStart;
         }
     }
@@ -306,7 +306,7 @@ int circularSuffixArray(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<
     for (Tnum i=0; i<numLMSSuff; ++i) {
         Tnum pos = sa[i];
         Tnum sbwrdLen = sa[numLMSSuff + (pos >> 1)];
-        bool disTdatact = true;
+        bool distinct = true;
 
         if (sbwrdLen == qLen) {
             Tnum j = 0;
@@ -314,11 +314,11 @@ int circularSuffixArray(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<
             for (j = 0; (j < sbwrdLen) && (inStr[pos + j] == inStr[q + j]); ++j) { }
 
             if(j == sbwrdLen) {
-                disTdatact = false;
+                distinct = false;
             }
         }
 
-        if (disTdatact) {
+        if (distinct) {
             ++numLabels;
             q = pos;
             qLen = sbwrdLen;

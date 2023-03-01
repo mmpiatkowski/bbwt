@@ -44,7 +44,7 @@
 */
 template<typename Tdata, typename Tnum>
 Tnum lyndonFactors(const Tdata *inStr, Tnum length, BitVector<Tnum> *factors = nullptr, BitVector<Tnum> *unique = nullptr) {
-    Tnum i = 0; 
+    Tnum i = 0;
     Tnum numFactors = 0;
 
     while (i < length) {

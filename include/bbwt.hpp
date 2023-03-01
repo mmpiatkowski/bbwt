@@ -82,7 +82,7 @@ int circularSuffixArray(const Tdata *inStr, Tnum *csa, Tnum len, const Tnum alph
  * @return 0 after successful computation, non-zero in case of any error
  */
 template<typename Tdata, typename Tnum>
-int bbwt(const Tdata *inStr, unsigned char *outStr, Tnum *csa, Tnum len, const Tnum alphSize = 256) {
+int bbwt(const Tdata *inStr, Tdata *outStr, Tnum *csa, Tnum len, const Tnum alphSize = 256) {
 
     //------------------------------------------------------------------------------------------------------------------
     // Incorrect and trivial input data
@@ -128,7 +128,8 @@ int bbwt(const Tdata *inStr, unsigned char *outStr, Tnum *csa, Tnum len, const T
             // Wrap around the Lyndon factor if needded
             if (lFac.get(inPos)) {
                 inPos = lFac.next(inPos) - 1;
-            } else {
+            } 
+            else {
                 --inPos;
             }
 
@@ -142,7 +143,8 @@ int bbwt(const Tdata *inStr, unsigned char *outStr, Tnum *csa, Tnum len, const T
             // Wrap around the Lyndon factor if needed
             if (lFac.get(inPos)) {
                 inPos = lFac.next(inPos) - 1;
-            } else {
+            } 
+            else {
                 --inPos;
             }
 
