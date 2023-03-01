@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
 
     try {
         inData = new unsigned char[dataSize];
-        csa = new int[dataSize];
+        csa = new Tnum[dataSize];
     }
     catch (const bad_alloc &e) {
         fprintf(stderr, "%s: Memory allocation error\n", argv[0]);

@@ -61,7 +61,7 @@ int circularSuffixArray(const Tdata *inStr, Tnum *csa, Tnum len, const Tnum alph
     // Compute Lyndon factorisation of the input data
     //------------------------------------------------------------------------------------------------------------------
 
-    BitVector lFac(len + 1);
+    BitVector<Tnum> lFac(len + 1);
     lyndonFactors(inStr, len, &lFac);
 
     //------------------------------------------------------------------------------------------------------------------
@@ -105,8 +105,8 @@ int bbwt(const Tdata *inStr, Tdata *outStr, Tnum *csa, Tnum len, const Tnum alph
     // Compute Lyndon factorisation of the input data
     //------------------------------------------------------------------------------------------------------------------
 
-    BitVector lFac(len + 1);    // All Lyndon factors
-    BitVector lFirst(len + 1);  // Only the first occurrence of each Lyndon factor
+    BitVector<Tnum> lFac(len + 1);    // All Lyndon factors
+    BitVector<Tnum> lFirst(len + 1);  // Only the first occurrence of each Lyndon factor
 
     lyndonFactors(inStr, len, &lFac, &lFirst);
 

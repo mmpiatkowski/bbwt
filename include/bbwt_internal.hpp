@@ -159,8 +159,8 @@ int circularSuffixArray(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<
     // All suffixes are initially assumed to be of type L (0), therefore we need to mark type S (1) suffixes only.
     //------------------------------------------------------------------------------------------------------------------
 
-    BitVector suffType(len + 7);
-    BitVector spcSuff(len + 1);
+    BitVector<Tnum> suffType(len + 7);
+    BitVector<Tnum> spcSuff(len + 1);
 
     for (Tnum fStart=0, fEnd; fStart<len; fStart=fEnd) {
         fEnd = lbFac.next(fStart);
@@ -333,7 +333,7 @@ int circularSuffixArray(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<
 
     if (numLabels < numLMSSuff) {
         // Derive the Lyndon factorisation of the reduced string from the Lyndon factorisation of the original string
-        BitVector redFactors(numLMSSuff + 1);
+        BitVector<Tnum> redFactors(numLMSSuff + 1);
 
         for (Tnum inPos=0, outPos=0; inPos < len; ++inPos) {
             if (isLMSPos(inPos, lbFac, suffType) && !spcSuff.get(inPos)) {
