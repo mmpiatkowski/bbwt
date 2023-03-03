@@ -23,8 +23,9 @@
  * SOFTWARE.
  */
 
+#include <iostream>
+#include <iomanip>
 #include <cstdio>
-#include <cstring>
 #include <chrono>
 #include <new>
 
@@ -40,7 +41,7 @@ int main(int argc, char **argv) {
     FILE *inFile, *outFile;
 
     if(argc != 3) {
-        fprintf(stderr, "Usage %s input_file output_file\n", argv[0]);
+        cerr << "Usage " << argv[0] << " input_file output_file" << endl;
 
         return 1;
     }
@@ -55,14 +56,14 @@ int main(int argc, char **argv) {
     Tnum dataSize = ftell(inFile);
     rewind(inFile);
 
-    printf("Input size =  %d B\n", dataSize);
+    cout << "Input size = " << dataSize << " B" << endl;
 
     try {
         inData = new unsigned char[dataSize];
         csa = new Tnum[dataSize];
     }
     catch (const bad_alloc &e) {
-        fprintf(stderr, "%s: Memory allocation error\n", argv[0]);
+        cerr << argv[0] << ": Memory allocation error" << endl;
 
         return 2;
     }
@@ -71,7 +72,7 @@ int main(int argc, char **argv) {
     fclose(inFile);
 
     if (dataCount != dataSize) {
-        fprintf(stderr, "%s error: input data read partially\n", argv[0]);
+        cerr << argv[0] << " error: input data read partially" << endl;
 
         return 1;
     }
@@ -83,7 +84,7 @@ int main(int argc, char **argv) {
     auto start = chrono::high_resolution_clock::now();
 
     if (bbwt(inData, inData, csa, dataSize) != 0) {
-        fprintf(stderr, "%s error: BBWT computation failed\n", argv[0]);
+        cerr << argv[0] << " error: BBWT computation failed" << endl;
 
         return -1;
     }
@@ -104,7 +105,7 @@ int main(int argc, char **argv) {
 
     //-------------------------------------------------------------------------
 
-    printf("Runtime %lu.%03lu s\n", duration.count()/1000, duration.count()%1000);
+    cout << "Runtime " << duration.count()/1000 << "." << fixed << setprecision(3) << duration.count()%1000 << " s" << endl;
 
     return 0;
 }
