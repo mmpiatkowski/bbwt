@@ -1,6 +1,6 @@
 SHELL = /bin/bash
-CC = g++
-CFLAGS = -Ofast -std=c++17 -Wall
+# CC = g++
+CFLAGS = -Wextra -pedantic -Ofast -std=c++17 -Wall
 INCLUDE = ../include
 
 

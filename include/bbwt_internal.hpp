@@ -27,6 +27,7 @@
 
 #include <new>
 #include <limits>
+#include <vector>
 
 #include "BitVector.hpp"
 #include "lyndon.hpp"
@@ -48,7 +49,7 @@
  */
 template<typename Tdata, typename Tnum>
 void computeBucketsStructure(const Tdata *inData, const Tnum len, Tnum *buckets, const Tnum alphSize = 256) {
-    Tnum charCount[alphSize] {0};
+		std::vector<Tnum> charCount(alphSize, 0);
     Tnum total = 0;
 
     for (Tnum i=0; i<len; ++i) {
