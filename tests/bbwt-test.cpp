@@ -1,5 +1,5 @@
 /**
- * Bijective Burrows-Wheeler computation testing.
+ * Bijective Burrows-Wheeler Transform computation testing.
  * Input data is read from a file, then BBWT and its inversion are computed
  * and compared to the input data.
  *

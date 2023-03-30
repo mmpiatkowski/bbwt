@@ -1,5 +1,5 @@
 /**
- * Bijective Burrows-Wheeler computation example.
+ * Bijective Burrows-Wheeler Transform computation example.
  * Input data is read from the standard input,
  * then BBWT and its inversion are computed.
  *

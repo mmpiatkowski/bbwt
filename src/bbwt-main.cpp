@@ -1,5 +1,5 @@
 /**
- * Bijective Burrows-Wheeler computation example.
+ * Bijective Burrows-Wheeler Transform computation example.
  * Input data is read from a file, output data is written to a file.
  *
  * (c) 2023 Marcin Piątkowski, marcin.piatkowski(at)mat.umk.pl
