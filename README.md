@@ -85,10 +85,20 @@ bbwt(text, output, csa, length);
 We provided the following example programs:
 * **bbwt-main.cpp** - Computation of BBWT for data read from a file.
   The result is stored in a file.
-* **bbwt-console.cpp** - Computation of BBWT for the data read from the standard input.
+* **bbwt-console.cpp** - Computation of BBWT for the data read from the standard input (line by line).
   The result is printed to standard output.
 * **csa-console.cpp** - Computation of circular suffix array for the data read from the standard input.
   The result is printed to the standard output.
+
+
+## Tests
+
+We provided the following testing programs:
+* **bbwt-test.cpp** - Reads data from a given file, computes BBWT, next computes inverse of BBWT
+  and finally compares the result of the inverse to the input data.
+* **bbwt-console-test.cpp** - Reads input from the standard input (line by line).
+  For each line read from the standard input computes BBWT and inverse of BBWT.
+  Both BBWT and its inverse are printed to the standard output.
   
   
 ## Experimental results
