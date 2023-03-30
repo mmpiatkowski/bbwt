@@ -36,7 +36,7 @@ using Tnum = int;
 const int MaxDataSize = 2048;
 
 
-int main(int argc, char **argv) {
+int main() {
     unsigned char inData[MaxDataSize], outData[MaxDataSize];
     Tnum csa[MaxDataSize];
 

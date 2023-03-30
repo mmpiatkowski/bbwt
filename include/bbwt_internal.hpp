@@ -91,7 +91,7 @@ bool isSingleton(const Tnum pos, const BitVector<Tnum> & lFac) {
  * Place all suffixes of type L at the beginning of corresponding bucket.
  */
 template<typename Tdata, typename Tnum>
-int preSortSuffixexL(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<Tnum> &lFac, const BitVector<Tnum> &suffType, const BitVector<Tnum> &spcFac, Tnum *buckets, const Tnum alphSize=256) {
+int preSortSuffixexL(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<Tnum> &lFac, const BitVector<Tnum> &suffType, const BitVector<Tnum> &spcFac, Tnum *buckets) {
     Tnum p = spcFac.prev(len);
 
     for (Tnum i=0; i<len; ++i) {
@@ -130,7 +130,7 @@ int preSortSuffixexL(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<Tnu
  * Place all suffixes of type S at the end of corresponding bucket.
  */
 template<typename Tdata, typename Tnum>
-int preSortSuffixesS(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<Tnum> &lFac, const BitVector<Tnum> &suffType, Tnum *buckets, const Tnum alphSize=256) {
+int preSortSuffixesS(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<Tnum> &lFac, const BitVector<Tnum> &suffType, Tnum *buckets) {
     for (Tnum i=len-1; i>=0; --i) {
         Tnum j = sa[i];
 
@@ -234,13 +234,13 @@ int circularSuffixArray(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<
     // Insert L inf-suffixes into the proper bucket (starting from the beginning of the bucket)
     //------------------------------------------------------------------------------------------------------------------
     memcpy(tmpBuckets, buckets, (alphSize+1)*sizeof(Tnum));
-    preSortSuffixexL(inStr, sa, len, lbFac, suffType, spcSuff, tmpBuckets, alphSize);
+    preSortSuffixexL(inStr, sa, len, lbFac, suffType, spcSuff, tmpBuckets);
 
     //------------------------------------------------------------------------------------------------------------------
     // Insert S inf-suffixes into the proper bucket (starting from the bucket end)
     //------------------------------------------------------------------------------------------------------------------
     memcpy(tmpBuckets, buckets, (alphSize+1)*sizeof(Tnum));
-    preSortSuffixesS(inStr, sa, len, lbFac, suffType, tmpBuckets, alphSize);
+    preSortSuffixesS(inStr, sa, len, lbFac, suffType, tmpBuckets);
 
     //------------------------------------------------------------------------------------------------------------------
     // Compact all LMS inf-suffixes into the first positions in the suffix array and clear its remaining part
@@ -408,13 +408,13 @@ int circularSuffixArray(const Tdata *inStr, Tnum *sa, Tnum len, const BitVector<
     // Insert L inf-suffixes into the proper bucket (starTdatag from the beginning of the bucket)
     //---------------------------------------------------------------------------------------------
     memcpy(tmpBuckets, buckets, alphSize*sizeof(Tnum));
-    preSortSuffixexL(inStr, sa, len, lbFac, suffType, spcSuff, tmpBuckets, alphSize);
+    preSortSuffixexL(inStr, sa, len, lbFac, suffType, spcSuff, tmpBuckets);
 
     //------------------------------------------------------------------------------------------------------------------
     // Insert S inf-suffixes into the proper bucket (starTdatag from the bucket end)
     //------------------------------------------------------------------------------------------------------------------
     memcpy(tmpBuckets, buckets, alphSize*sizeof(Tnum));
-    preSortSuffixesS(inStr, sa, len, lbFac, suffType, tmpBuckets, alphSize);
+    preSortSuffixesS(inStr, sa, len, lbFac, suffType, tmpBuckets);
 
     delete[] buckets;
     delete[] tmpBuckets;
