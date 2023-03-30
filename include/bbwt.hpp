@@ -188,9 +188,9 @@ int unbbwt(const Tdata *inStr, Tdata *outStr, Tnum len, const Tnum alphSize = 25
         return 0;
     }
 
-    Tnum charsCount[alphSize] = {0};
-    Tnum charsBefore[alphSize] = {0};
-    Tnum charsSeen[alphSize] = {0};
+    std::vector<Tnum> charsCount(alphSize, 0);
+    std::vector<Tnum> charsBefore(alphSize, 0);
+    std::vector<Tnum> charsSeen(alphSize, 0);
     Tnum *stdPerm = new Tnum[len];
 
     for (Tnum i=0; i<len; ++i)
